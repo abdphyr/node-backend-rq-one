@@ -8,9 +8,13 @@ interface UserProps {
     id: string;
     channelId: string;
 }
-interface ChannelProps{
-    id:string ;
-    courses:string[]
+interface ChannelProps {
+    id: string;
+    courses: string[]
+}
+interface ColorProps {
+    id: number;
+    label: string;
 }
 
 export const validatorHero = (reqBody: HeroProps) => {
@@ -34,4 +38,11 @@ export const validatorChannel = (reqBody: ChannelProps) => {
         courses: Joi.array().required()
     })
     return channel.validate(reqBody)
+}
+
+export const validatorColor = (reqBody: ColorProps) => {
+    const color = Joi.object({
+        label: Joi.string().min(3).max(30).required()
+    })
+    return color.validate(reqBody)
 }

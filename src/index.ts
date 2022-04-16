@@ -4,6 +4,7 @@ import { connectdb } from './db/config';
 import { heroRouter } from './routes/routes.hero';
 import { userRouter } from './routes/routes.user';
 import { channelRouter } from './routes/routes.channel';
+import { colorRouter } from './routes/routes.color';
 import helmet from 'helmet'
 import morgan from 'morgan'
 import cors from 'cors'
@@ -19,6 +20,7 @@ const run = async () => {
     app.use('/api/heroes', heroRouter)
     app.use('/api/users', userRouter)
     app.use('/api/channels', channelRouter)
+    app.use('/api/colors', colorRouter)
     app.use(morgan('tiny'))
     app.use(cors({ origin: true }))
     app.use((req: Request, res: Response, next: NextFunction) => {
