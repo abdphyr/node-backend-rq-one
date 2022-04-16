@@ -3,6 +3,14 @@ import { Color } from "../models/model.color";
 import { validatorColor } from "./validator";
 
 export const getColors: RequestHandler = async (req, res) => {
+    const { page, limit } = req.query
+    if (page && limit && typeof page === 'string' && typeof limit === 'string') {
+        const p = parseInt(page)
+        const l = parseInt(limit)
+        const colors = await Color.find().skip(((p - 1) * l)).limit(l).select({ _id: 0, __v: 0 })
+        res.send(colors)
+        return;
+    }
     const colors = await Color.find().select({ _id: 0, __v: 0 })
     res.send(colors)
 }
