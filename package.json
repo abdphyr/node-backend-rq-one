@@ -2,9 +2,10 @@
   "name": "node-backend",
   "version": "1.0.0",
   "description": "This is backend for react query app",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index"
   },
   "keywords": [
     "['node'",
