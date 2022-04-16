@@ -1,18 +1,24 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response, NextFunction, Application } from 'express';
+import { Server, createServer } from 'http';
 import { connectdb } from './db/config';
 import { heroRouter } from './routes/routes.hero';
+import { userRouter } from './routes/routes.user';
+import { channelRouter } from './routes/routes.channel';
 import helmet from 'helmet'
 import morgan from 'morgan'
 import cors from 'cors'
 
 const run = async () => {
-    const app = express()
+    const app: Application = express()
+    const server: Server = createServer(app)
     connectdb()
 
     app.use(express.json())
     app.use(express.urlencoded())
     app.use(helmet())
     app.use('/api/heroes', heroRouter)
+    app.use('/api/users', userRouter)
+    app.use('/api/channels', channelRouter)
     app.use(morgan('tiny'))
     app.use(cors({ origin: true }))
     app.use((req: Request, res: Response, next: NextFunction) => {
@@ -25,10 +31,8 @@ const run = async () => {
         res.status(200).send(`Loyiha ishlamoqda ...`)
     })
 
-
-
     const port = process.env.PORT || 4000
-    app.listen(port, () => {
+    server.listen(port, () => {
         console.log(`Loyihamiz ${port}-portda ishlamoqda ...`)
     })
 }
