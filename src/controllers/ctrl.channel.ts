@@ -30,6 +30,20 @@ export const getChannel: RequestHandler = async (req, res) => {
     }
     res.send(channel)
 }
+export const putChannel: RequestHandler = async (req, res) => {
+    const { error } = validatorChannel(req.body)
+    if (error) {
+        res.status(400).send(error.details[0].message)
+        return;
+    }
+    const id = req.params.id
+    const updatedChannel = await Channel.updateOne({ id: id }, {
+        $set: {
+            courses: req.body.courses
+        }
+    })
+    res.send(updatedChannel)
+}
 
 export const delChannel: RequestHandler = async (req, res) => {
     const id = req.params.id

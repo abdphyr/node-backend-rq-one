@@ -22,7 +22,7 @@ export const validatorHero = (reqBody: HeroProps) => {
 }
 export const validatorUser = (reqBody: UserProps) => {
     const user = Joi.object({
-        id: Joi.string().min(5).max(30).required(),
+        id: Joi.string().min(5).max(30),
         channelId: Joi.string().min(5).max(30).required()
     })
     return user.validate(reqBody)
@@ -30,7 +30,7 @@ export const validatorUser = (reqBody: UserProps) => {
 
 export const validatorChannel = (reqBody: ChannelProps) => {
     const channel = Joi.object({
-        id: Joi.string().min(5).max(30).required(),
+        id: Joi.string().min(5).max(30),
         courses: Joi.array().required()
     })
     return channel.validate(reqBody)
